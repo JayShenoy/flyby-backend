@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, make_response
+from flask.ext.cors import CORS, cross_origin
 import json
 import hashlib
 
@@ -15,6 +16,8 @@ connect(MONGODB_NAME, host=MONGODB_URI)
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24).encode('hex')
+app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 cloudinary.config(
     cloud_name = 'jayshenoy',
@@ -28,6 +31,7 @@ def home():
     return render_template('home.html')
 
 @app.route('/register-driver', methods=['POST'])
+@cross_origin()
 def register_driver():
     driver = Driver()
 
@@ -58,7 +62,8 @@ def register_driver():
 
     return 'Success'
 
-@app.route('/register-senior', methods=['GET'])
+@app.route('/register-senior', methods=['POST'])
+@cross_origin()
 def register_senior():
     senior = Senior()
 
