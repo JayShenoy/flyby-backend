@@ -58,8 +58,8 @@ def register_driver():
 
     return 'Success'
 
-@app.route('/register-senior', methods=['POST'])
-def register_senio():
+@app.route('/register-senior', methods=['GET'])
+def register_senior():
     senior = Senior()
 
     # Check if username taken
