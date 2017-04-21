@@ -76,25 +76,25 @@ def register_senior():
     senior.password = hashlib.sha512(request.form['password']).hexdigest()
     senior.name = request.form['name']
     senior.age = int(request.form['age'])
-    profile_photo_img = request.files['profile_photo']
-    id_img = request.files['license']
+    #profile_photo_img = request.files['profile_photo']
+    #id_img = request.files['license']
     senior.address = request.form['address']
     senior.hospital = request.form['hospital']
     senior.has_cane = request.form['has_cane']
     senior.has_walker = request.form['has_walker']
 
     # Upload profile and identification images to cloud and store URLs
-    profile_photo_json = cloudinary.uploader.upload(profile_photo_img)
+    '''profile_photo_json = cloudinary.uploader.upload(profile_photo_img)
     senior.profile_photo = profile_photo_json['secure_url']
     id_json = cloudinary.uploader.upload(id_img)
-    senior.identification = id_json['secure_url']
+    senior.identification = id_json['secure_url']'''
 
     # Label senior as unauthorized when initially registering
     senior.authorized = False
 
     senior.save()
 
-    return json.dumps(senior.profile_photo)
+    return json.dumps('Success')
 
 if __name__ == '__main__':
     app.run(debug=True)
