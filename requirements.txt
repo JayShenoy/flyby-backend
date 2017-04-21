@@ -1,0 +1,8 @@
+flask
+
+gevent
+gunicorn
+
+mongoengine
+
+cloudinary
