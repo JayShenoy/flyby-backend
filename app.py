@@ -38,7 +38,7 @@ def register_driver():
     # Check if username taken
     count = Driver.objects(username=request.form['username'])
     if count > 0:
-        return 'Username taken'
+        return json.dumps('Username taken')
     driver.username = request.form['username']
     # Hash password
     driver.password = hashlib.sha512(request.form['password']).hexdigest()
@@ -60,7 +60,7 @@ def register_driver():
 
     driver.save()
 
-    return 'Success'
+    return json.dumps('Success')
 
 @app.route('/register-senior', methods=['POST'])
 @cross_origin()
@@ -70,7 +70,7 @@ def register_senior():
     # Check if username taken
     count = Senior.objects(username=request.form['username'])
     if count > 0:
-        return 'Username taken'
+        return json.dumps('Username taken')
     senior.username = request.form['username']
     # Hash password
     senior.password = hashlib.sha512(request.form['password']).hexdigest()
@@ -94,7 +94,7 @@ def register_senior():
 
     senior.save()
 
-    return 'Success'
+    return json.dumps(senior.profile_photo)
 
 if __name__ == '__main__':
     app.run(debug=True)

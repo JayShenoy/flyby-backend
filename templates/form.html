@@ -11,7 +11,7 @@
     var form_data = new FormData($('#driver-form')[0]);
     $.ajax({
       type: 'POST',
-      url: '/register-driver',
+      url: 'https://flybyapp.herokuapp.com/register-driver',
       data: form_data,
       contentType: false,
       cache: false,
