@@ -36,7 +36,7 @@ def register_driver():
     driver = Driver()
 
     # Check if username taken
-    count = Driver.objects(username=request.form['username'])
+    count = Driver.objects(username=request.form['username']).count()
     if count > 0:
         return json.dumps('Username taken')
     driver.username = request.form['username']
@@ -68,7 +68,7 @@ def register_senior():
     senior = Senior()
 
     # Check if username taken
-    count = Senior.objects(username=request.form['username'])
+    count = Senior.objects(username=request.form['username']).count()
     if count > 0:
         return json.dumps('Username taken')
     senior.username = request.form['username']
