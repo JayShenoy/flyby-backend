@@ -1,0 +1,31 @@
+<form id="driver-form" method="post" enctype="multipart/form-data">
+  <label for="file">Upload profile photo</label>
+  <input name="profile_photo" type="file">
+  <button id="submit-btn" type="button">Submit</button>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script>
+  $('#submit-btn').click(function() {
+    /*var date = $('#datepicker').datepicker('getDate');
+
+    if (date === null) {
+      date = new Date();
+    }*/
+
+    var form_data = new FormData($('#driver-form')[0]);
+    $.ajax({
+      type: 'POST',
+      url: '/register-driver',
+      data: form_data,
+      contentType: false,
+      cache: false,
+      processData: false,
+      async: false,
+      success: function(data) {
+        return;
+      },
+    });
+  });
+</script>

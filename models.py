@@ -1,6 +1,8 @@
 from mongoengine import *
 
 class Driver(Document):
+    username = StringField(required=True)
+    password = StringField(required=True)
     name = StringField(required=True)
     age = IntField(required=True)
     profile_photo = StringField(required=True)
@@ -10,6 +12,8 @@ class Driver(Document):
     authorized = BooleanField(required=True)
 
 class Senior(Document):
+    username = StringField(required=True)
+    password = StringField(required=True)
     name = StringField(required=True)
     age = IntField(required=True)
     profile_photo = StringField(required=True)
