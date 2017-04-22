@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, make_response
+from flask import Flask, render_template, request, redirect, url_for, make_response, session
 from flask.ext.cors import CORS, cross_origin
 import json
 import hashlib
@@ -43,17 +43,15 @@ def register_driver():
     # Hash password
     driver.password = hashlib.sha512(request.form['password']).hexdigest()
     driver.name = request.form['name']
-    driver.age = int(request.form['age'])
-    profile_photo_img = request.files['profile_photo']
+    driver.age = request.form['age']
+    #profile_photo_img = request.files['profile_photo']
     driver.insurance = request.form['insurance']
-    license_img = request.files['license']
+    license = request.form['license']
     driver.vin = request.form['vin']
 
     # Upload profile and license images to cloud and store URLs
-    profile_photo_json = cloudinary.uploader.upload(profile_photo_img)
-    driver.profile_photo = profile_photo_json['secure_url']
-    license_json = cloudinary.uploader.upload(license_img)
-    driver.license = license_json['secure_url']
+    '''profile_photo_json = cloudinary.uploader.upload(profile_photo_img)
+    driver.profile_photo = profile_photo_json['secure_url']'''
 
     # Label driver as unauthorized when initially registering
     driver.authorized = False
@@ -75,13 +73,21 @@ def register_senior():
     # Hash password
     senior.password = hashlib.sha512(request.form['password']).hexdigest()
     senior.name = request.form['name']
-    senior.age = int(request.form['age'])
+    senior.age = request.form['age']
     #profile_photo_img = request.files['profile_photo']
     #id_img = request.files['license']
     senior.address = request.form['address']
     senior.hospital = request.form['hospital']
-    senior.has_cane = request.form['has_cane']
-    senior.has_walker = request.form['has_walker']
+
+    # Check for cane and walker
+    if 'has_cane' in request.form:
+        senior.has_cane = True
+    else:
+        senior.has_cane = False
+    if 'has_walker' in request.form:
+        senior.has_walker = True
+    else:
+        senior.has_walker = False
 
     # Upload profile and identification images to cloud and store URLs
     '''profile_photo_json = cloudinary.uploader.upload(profile_photo_img)
